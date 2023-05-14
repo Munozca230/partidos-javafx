@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sena.InitialPaneController">
+    <TableView fx:id="table" layoutX="161.0" layoutY="2.0" prefHeight="346.0" prefWidth="839.0">
+        <columns>
+            <TableColumn fx:id="equipoContrincanteColumn" prefWidth="121.0" text="Equipo contrincante" />
+            <TableColumn fx:id="marcadosColumn" prefWidth="40.0" text="Marc" />
+            <TableColumn fx:id="recibidosColumn" prefWidth="50.0" text="Rec" />
+            <TableColumn fx:id="avgGolesColumn" minWidth="6.0" prefWidth="69.0" text="Avg Goles" />
+            <TableColumn fx:id="lugarColumn" prefWidth="118.0" text="Lugar" />
+            <TableColumn fx:id="fechaColumn" prefWidth="98.0" text="Fecha" />
+         <TableColumn fx:id="amarillasColColumn" prefWidth="36.0" text="ACol" />
+         <TableColumn fx:id="rojasColColumn" minWidth="9.0" prefWidth="37.0" text="RCol" />
+         <TableColumn fx:id="amarillasConColumn" prefWidth="36.0" text="ACon" />
+         <TableColumn fx:id="rojasConColumn" prefWidth="37.0" text="RCon" />
+         <TableColumn fx:id="tipoPartidoColumn" prefWidth="91.0" text="Tipo Partido" />
+         <TableColumn fx:id="camisaColumn" prefWidth="105.0" text="Camisa" />
+        </columns>
+    </TableView>
+   <Button fx:id="buttonAgregar" layoutX="26.0" layoutY="409.0" mnemonicParsing="false" text="Agregar partido">
+      <font>
+         <Font size="13.0" />
+      </font></Button>
+   <Text layoutX="7.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar nuevo partido" textAlignment="CENTER" underline="true">
+      <font>
+         <Font name="Arial" size="14.0" />
+      </font>
+   </Text>
+   <TextField fx:id="equipoContrincante" layoutX="13.0" layoutY="111.0" prefHeight="25.0" prefWidth="133.0" promptText="Equipo Contrincante" />
+   <DatePicker fx:id="fecha" layoutX="12.0" layoutY="357.0" prefHeight="25.0" prefWidth="133.0" promptText="Fecha" />
+   <TextField fx:id="golCol" layoutX="20.0" layoutY="162.0" prefHeight="25.0" prefWidth="38.0" promptText="COL" />
+   <TextField fx:id="golCon" alignment="CENTER" layoutX="95.0" layoutY="162.0" prefHeight="25.0" prefWidth="38.0" promptText="X" />
+   <Text layoutX="65.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="22.13671875">
+      <font>
+         <Font size="31.0" />
+      </font>
+   </Text>
+   <Text layoutX="49.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Goles" textAlignment="CENTER" wrappingWidth="56.13671875">
+      <font>
+         <Font name="Arial" size="12.0" />
+      </font>
+   </Text>
+   <TextField fx:id="lugar" layoutX="11.0" layoutY="319.0" prefHeight="25.0" prefWidth="133.0" promptText="Lugar" />
+   <TextField fx:id="amarillasCol" layoutX="20.0" layoutY="221.0" prefHeight="25.0" prefWidth="38.0" promptText="COL" />
+   <TextField fx:id="amarillaCon" alignment="CENTER" layoutX="95.0" layoutY="221.0" prefHeight="25.0" prefWidth="38.0" promptText="X" />
+   <Text layoutX="65.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="22.13671875">
+      <font>
+         <Font size="31.0" />
+      </font>
+   </Text>
+   <TextField fx:id="rojaCol" layoutX="20.0" layoutY="278.0" prefHeight="25.0" prefWidth="38.0" promptText="COL" />
+   <TextField fx:id="rojaCon" alignment="CENTER" layoutX="95.0" layoutY="278.0" prefHeight="25.0" prefWidth="38.0" promptText="X" />
+   <Text layoutX="65.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="22.13671875">
+      <font>
+         <Font size="31.0" />
+      </font>
+   </Text>
+   <Text layoutX="50.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amarillas" textAlignment="CENTER" wrappingWidth="56.13671875">
+      <font>
+         <Font name="Arial" size="12.0" />
+      </font>
+   </Text>
+   <Text layoutX="49.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rojas" textAlignment="CENTER" wrappingWidth="56.13671875">
+      <font>
+         <Font name="Arial" size="12.0" />
+      </font>
+   </Text>
+   <TextField fx:id="colorCamisa" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="133.0" promptText="Color camisa" />
+   <SplitMenuButton fx:id="splitTipo" layoutX="15.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Tipo de partido">
+     <items>
+       <MenuItem mnemonicParsing="false" text="Local" />
+       <MenuItem mnemonicParsing="false" text="Visitante" />
+     </items>
+   </SplitMenuButton>
+   <Pane layoutX="301.0" layoutY="355.0" prefHeight="89.0" prefWidth="579.0">
+      <children>
+         <Button fx:id="buttonMostrarTodos" layoutX="-57.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Mostrar todos los partidos">
+            <font>
+               <Font size="13.0" />
+            </font></Button>
+         <Button fx:id="buttonOrdenDesc" layoutX="-68.0" layoutY="49.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="238.0" text="Mostrar orden desc por goles COL">
+            <font>
+               <Font size="13.0" />
+            </font></Button>
+         <Text layoutX="338.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipo con más goles:" wrappingWidth="145.13671875">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Text>
+         <Separator layoutX="264.0" layoutY="41.0" prefHeight="5.0" prefWidth="425.0" />
+         <Text layoutX="323.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\% Partidos ganados COL:" wrappingWidth="145.13671875">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Text>
+         <Separator layoutX="258.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="96.0" prefWidth="0.0" />
+         <Text fx:id="equipoGoles" layoutX="473.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="138.537109375">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Text>
+         <Text fx:id="porcentajeGanadosCol" layoutX="473.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="138.537109375">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Text>
+      </children>
+   </Pane>
+   <Separator layoutX="156.0" orientation="VERTICAL" prefHeight="450.0" prefWidth="9.0" />
+</AnchorPane>
