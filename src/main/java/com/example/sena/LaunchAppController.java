@@ -13,6 +13,7 @@ public class LaunchAppController extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(LaunchAppController.class.getResource("initial-pane.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Partidos");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

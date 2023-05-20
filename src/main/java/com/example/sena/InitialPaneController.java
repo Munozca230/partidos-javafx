@@ -77,6 +77,7 @@ public class InitialPaneController implements Initializable {
     @FXML
     private Text numeroPartidos;
     private ObservableList<Partido> partidosList = FXCollections.observableArrayList();
+    private Partido partidoSeleccionado;
 
 
     @Override
@@ -96,6 +97,14 @@ public class InitialPaneController implements Initializable {
         camisaColumn.setCellValueFactory(new PropertyValueFactory<>("colorCamisa"));
 
         cargarActualizarItems();
+
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                partidoSeleccionado = newSelection;
+                llenarCamposPartidoSeleccionado();
+                buttonAgregar.setText("Editar Partido");
+            }
+        });
     }
 
     private void cargarPartidosDesdeBD(String query) {
@@ -146,13 +155,13 @@ public class InitialPaneController implements Initializable {
         }
     }
 
-
     private Connection iniciarConexion() throws SQLException {
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/partidos", "postgres", "123456");
     }
 
     @FXML
-    private void agregarPartido() {
+    private void agregarPartido() throws SQLException {
+        Long id = partidoSeleccionado.getId();
         String equipoContrincanteValue = equipoContrincante.getText();
         int golesRecibidosValue = Integer.parseInt(golCon.getText());
         int golesMarcadosValue = Integer.parseInt(golCol.getText());
@@ -165,25 +174,45 @@ public class InitialPaneController implements Initializable {
         String tipoPartidoValue = splitTipo.getText();
         String colorCamisaValue = colorCamisa.getText();
 
-        Partido nuevoPartido = new Partido(equipoContrincanteValue, golesRecibidosValue, golesMarcadosValue,
-                lugarValue, fechaValue, amarillasColombiaValue, amarillasContrincanteValue,
-                rojasColombiaValue, rojasContrincanteValue, tipoPartidoValue, colorCamisaValue);
+        Connection conn = iniciarConexion();
 
-        insertPartido(nuevoPartido);
+        if (partidoSeleccionado != null) {
 
-        equipoContrincante.clear();
-        golCon.clear();
-        golCol.clear();
-        lugar.clear();
-        fecha.setValue(null);
-        amarillasCol.clear();
-        amarillaCon.clear();
-        rojaCol.clear();
-        rojaCon.clear();
-        splitTipo.setText("Tipo de partido");
-        colorCamisa.clear();
+            String query = "UPDATE partidos SET equipo_contrincante = ?, goles_recibidos = ?, goles_marcados = ?, lugar = ?, fecha = ?, " +
+                    "amarillas_colombia = ?, amarillas_contrincante = ?, rojas_colombia = ?, rojas_contrincante = ?, tipo_partido = ?, color_camisa = ? " +
+                    "WHERE id = ?";
 
-        cargarActualizarItems();
+            PreparedStatement statement = conn.prepareStatement(query);
+
+            statement.setString(1, equipoContrincanteValue);
+            statement.setInt(2, golesRecibidosValue);
+            statement.setInt(3, golesMarcadosValue);
+            statement.setString(4, lugarValue);
+            statement.setDate(5, Date.valueOf(fechaValue));
+            statement.setInt(6, amarillasColombiaValue);
+            statement.setInt(7, amarillasContrincanteValue);
+            statement.setInt(8, rojasColombiaValue);
+            statement.setInt(9, rojasContrincanteValue);
+            statement.setString(10, tipoPartidoValue);
+            statement.setString(11, colorCamisaValue);
+            statement.setInt(12, Math.toIntExact(id));
+
+            statement.executeUpdate();
+            statement.close();
+            conn.close();
+
+            buttonAgregar.setText("Agregar Partido");
+            limpiarCampos();
+            cargarActualizarItems();
+        } else {
+            Partido nuevoPartido = new Partido(equipoContrincanteValue, golesRecibidosValue, golesMarcadosValue,
+                    lugarValue, fechaValue, amarillasColombiaValue, amarillasContrincanteValue,
+                    rojasColombiaValue, rojasContrincanteValue, tipoPartidoValue, colorCamisaValue);
+
+            insertPartido(nuevoPartido);
+            limpiarCampos();
+            cargarActualizarItems();
+        }
     }
 
     public void insertPartido(Partido partido) {
@@ -224,6 +253,12 @@ public class InitialPaneController implements Initializable {
         numeroPartidos.setText(String.valueOf(partidosList.size()));
     }
 
+    public void mostrarTarjetaRoja() {
+        cargarPartidosDesdeBD("SELECT * FROM public.partidos WHERE rojas_colombia > 0 OR rojas_contrincante > 0;");
+        table.setItems(partidosList);
+        numeroPartidos.setText(String.valueOf(partidosList.size()));
+    }
+
     public String cargarDatoPartido(String query) {
         try {
             Connection conn = iniciarConexion();
@@ -240,6 +275,21 @@ public class InitialPaneController implements Initializable {
         }
         return String.valueOf("0.0");
     }
+
+    public void limpiarCampos() {
+        equipoContrincante.clear();
+        golCon.clear();
+        golCol.clear();
+        lugar.clear();
+        fecha.setValue(null);
+        amarillasCol.clear();
+        amarillaCon.clear();
+        rojaCol.clear();
+        rojaCon.clear();
+        splitTipo.setText("Tipo de partido");
+        colorCamisa.clear();
+    }
+
     @FXML
     private void seleccionarTipoPartido(ActionEvent event) {
         MenuItem menuItem = (MenuItem) event.getSource();
@@ -247,6 +297,24 @@ public class InitialPaneController implements Initializable {
         splitTipo.setText(tipoPartido);
     }
 
+    private void llenarCamposPartidoSeleccionado() {
+        equipoContrincante.setText(partidoSeleccionado.getEquipoContrincante());
+        fecha.setValue(partidoSeleccionado.getFecha());
+        golCol.setText(Integer.toString(partidoSeleccionado.getGolesMarcados()));
+        golCon.setText(Integer.toString(partidoSeleccionado.getGolesRecibidos()));
+        lugar.setText(partidoSeleccionado.getLugar());
+        amarillasCol.setText(Integer.toString(partidoSeleccionado.getAmarillasColombia()));
+        amarillaCon.setText(Integer.toString(partidoSeleccionado.getAmarillasContrincante()));
+        rojaCol.setText(Integer.toString(partidoSeleccionado.getRojasColombia()));
+        rojaCon.setText(Integer.toString(partidoSeleccionado.getRojasContrincante()));
+        colorCamisa.setText(partidoSeleccionado.getColorCamisa());
+        splitTipo.setText(partidoSeleccionado.getTipoPartido());
+    }
 
+    public void cancelar() {
+        limpiarCampos();
+        cargarActualizarItems();
+        buttonAgregar.setText("Agregar Partido");
+    }
 
 }
