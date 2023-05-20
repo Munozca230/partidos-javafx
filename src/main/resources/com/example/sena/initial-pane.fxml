@@ -21,7 +21,7 @@
          <TableColumn fx:id="camisaColumn" prefWidth="105.0" text="Camisa" />
         </columns>
     </TableView>
-   <Button fx:id="buttonAgregar" layoutX="26.0" layoutY="409.0" mnemonicParsing="false" text="Agregar partido">
+   <Button fx:id="buttonAgregar" layoutX="26.0" layoutY="409.0" mnemonicParsing="false" onAction="#agregarPartido" text="Agregar partido">
       <font>
          <Font size="13.0" />
       </font></Button>
@@ -72,42 +72,58 @@
    <TextField fx:id="colorCamisa" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="133.0" promptText="Color camisa" />
    <SplitMenuButton fx:id="splitTipo" layoutX="15.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Tipo de partido">
      <items>
-       <MenuItem mnemonicParsing="false" text="Local" />
-       <MenuItem mnemonicParsing="false" text="Visitante" />
+       <MenuItem mnemonicParsing="false" onAction="#seleccionarTipoPartido" text="Local" />
+       <MenuItem mnemonicParsing="false" onAction="#seleccionarTipoPartido" text="Visitante" />
      </items>
    </SplitMenuButton>
-   <Pane layoutX="301.0" layoutY="355.0" prefHeight="89.0" prefWidth="579.0">
+   <Pane layoutX="246.0" layoutY="357.0" prefHeight="89.0" prefWidth="751.0">
       <children>
-         <Button fx:id="buttonMostrarTodos" layoutX="-57.0" layoutY="9.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Mostrar todos los partidos">
+         <Button fx:id="buttonMostrarTodos" layoutX="-67.0" layoutY="9.0" mnemonicParsing="false" onAction="#cargarActualizarItems" prefHeight="68.0" prefWidth="110.0" text="Mostrar todos los partidos" textAlignment="CENTER" wrapText="true">
             <font>
                <Font size="13.0" />
             </font></Button>
-         <Button fx:id="buttonOrdenDesc" layoutX="-68.0" layoutY="49.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="238.0" text="Mostrar orden desc por goles COL">
+         <Button fx:id="buttonOrdenDesc" layoutX="72.0" layoutY="47.0" mnemonicParsing="false" onAction="#mostrarOrdenDesc" prefHeight="27.0" prefWidth="238.0" text="Mostrar orden desc por goles COL">
             <font>
                <Font size="13.0" />
             </font></Button>
-         <Text layoutX="338.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipo con más goles:" wrappingWidth="145.13671875">
+         <Text layoutX="355.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Equipo con más goles:" wrappingWidth="145.13671875">
             <font>
                <Font size="13.0" />
             </font>
          </Text>
-         <Separator layoutX="264.0" layoutY="41.0" prefHeight="5.0" prefWidth="425.0" />
-         <Text layoutX="323.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\% Partidos ganados COL:" wrappingWidth="145.13671875">
+         <Separator layoutX="341.0" layoutY="42.0" prefHeight="3.0" prefWidth="225.0" />
+         <Text layoutX="342.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\% Partidos ganados COL:" wrappingWidth="145.13671875">
             <font>
                <Font size="13.0" />
             </font>
          </Text>
-         <Separator layoutX="258.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="96.0" prefWidth="0.0" />
-         <Text fx:id="equipoGoles" layoutX="473.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="138.537109375">
+         <Separator layoutX="316.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="96.0" prefWidth="0.0" />
+         <Text fx:id="equipoGoles" layoutX="486.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="73.537109375">
             <font>
                <Font size="13.0" />
             </font>
          </Text>
-         <Text fx:id="porcentajeGanadosCol" layoutX="473.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="138.537109375">
+         <Text fx:id="porcentajeGanadosCol" layoutX="487.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="73.537109375">
             <font>
                <Font size="13.0" />
             </font>
          </Text>
+         <Separator layoutX="569.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="96.0" prefWidth="0.0" />
+         <Text layoutX="614.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Partidos jugados" wrappingWidth="110.00000000000006">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Text>
+         <Text fx:id="numeroPartidos" layoutX="592.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="138.537109375">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Text>
+         <Button fx:id="buttonTarjetaRoja" layoutX="72.0" layoutY="13.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="238.0" text="Mostrar partidos con tarjetas rojas">
+            <font>
+               <Font size="13.0" />
+            </font>
+         </Button>
       </children>
    </Pane>
    <Separator layoutX="156.0" orientation="VERTICAL" prefHeight="450.0" prefWidth="9.0" />

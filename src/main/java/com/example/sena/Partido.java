@@ -20,6 +20,20 @@ public class Partido {
 
     public Partido(){}
 
+    public Partido(String equipoContrincanteValue, int golesRecibidosValue, int golesMarcadosValue, String lugarValue, LocalDate fechaValue, int amarillasColombiaValue, int amarillasContrincanteValue, int rojasColombiaValue, int rojasContrincanteValue, String tipoPartidoValue, String colorCamisaValue) {
+        this.equipoContrincante = equipoContrincanteValue;
+        this.golesRecibidos = golesRecibidosValue;
+        this.golesMarcados = golesMarcadosValue;
+        this.lugar = lugarValue;
+        this.fecha = fechaValue;
+        this.amarillasColombia = amarillasColombiaValue;
+        this.amarillasContrincante = amarillasContrincanteValue;
+        this.rojasColombia = rojasColombiaValue;
+        this.rojasContrincante = rojasContrincanteValue;
+        this.tipoPartido = tipoPartidoValue;
+        this.colorCamisa = colorCamisaValue;
+    }
+
     public Long getId() {
         return id;
     }
